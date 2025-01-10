@@ -12,13 +12,11 @@ export class StudentsService {
     private studentRepository: Repository<Student>,
   ) {}
 
-  // Branch: create-students
   async createStudent(createStudentDto: CreateStudentDto): Promise<Student> {
     const student = this.studentRepository.create(createStudentDto);
     return await this.studentRepository.save(student);
   }
 
-  // Branch: read-students
   async getAllStudents(): Promise<Student[]> {
     return await this.studentRepository.find();
   }
@@ -31,7 +29,6 @@ export class StudentsService {
     return student;
   }
 
-  // Branch: update-students
   async updateStudent(
     id: number,
     updateStudentDto: UpdateStudentDto,
@@ -41,7 +38,6 @@ export class StudentsService {
     return await this.studentRepository.save(student);
   }
 
-  // Branch: delete-students
   async deleteStudent(id: number): Promise<void> {
     const result = await this.studentRepository.delete(id);
     if (result.affected === 0) {
