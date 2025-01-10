@@ -1,10 +1,21 @@
-import { Controller, Get, Param, HttpStatus, Put, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { StudentsService } from './students.service';
+import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
+
+  @Post()
+  async createStudent(@Body() createStudentDto: CreateStudentDto) {
+    const student = await this.studentsService.createStudent(createStudentDto);
+    return {
+      statusCode: HttpStatus.CREATED,
+      message: 'Student created successfully',
+      data: student,
+    };
+  }
 
   @Get()
   async getAllStudents() {
